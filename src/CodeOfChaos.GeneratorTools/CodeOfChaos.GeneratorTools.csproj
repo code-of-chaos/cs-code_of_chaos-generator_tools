@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net9</TargetFrameworks>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <!-- Main package name -->
+        <PackageId>CodeOfChaos.Generatortools</PackageId>
+        <Version>0.1.0-preview.0</Version>
+        <Authors>Anna Sas</Authors>
+        <Description>A library to help you create code generators more easily</Description>
+        <PackageProjectUrl>https://github.com/code-of-chaos/cs-code_of_chaos-generator_tools/</PackageProjectUrl>
+        <PackageTags>roslyn code-generator generator source-generator source</PackageTags>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <DebugType>embedded</DebugType>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>icon.png</PackageIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
+        <None Include="..\..\README.md" Pack="true" PackagePath="" />
+        <None Include="../../assets/icon.png" Pack="true" PackagePath="" />
+    </ItemGroup>
+
+</Project>
