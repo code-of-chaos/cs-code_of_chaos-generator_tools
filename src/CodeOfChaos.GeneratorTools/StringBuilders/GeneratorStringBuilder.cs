@@ -88,6 +88,13 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
         return this;
     }
     #endregion
+
+    public GeneratorStringBuilder AppendLineAndIndent(string text, Action<GeneratorStringBuilder> indentedAction) {
+        AppendLine(text);
+        Indent(indentedAction);
+        return this;
+    }
+    
     #region ToString & Clear
     public override string ToString() => _stringBuilder.ToString();
 
