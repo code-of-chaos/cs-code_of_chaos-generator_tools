@@ -7,8 +7,8 @@
         <Nullable>enable</Nullable>
 
         <!-- Main package name -->
-        <PackageId>CodeOfChaos.Generatortools</PackageId>
-        <Version>0.1.0-preview.1</Version>
+        <PackageId>CodeOfChaos.GeneratorTools</PackageId>
+        <Version>0.1.0-preview.2</Version>
         <Authors>Anna Sas</Authors>
         <Description>A library to help you create code generators more easily</Description>
         <PackageProjectUrl>https://github.com/code-of-chaos/cs-code_of_chaos-generator_tools/</PackageProjectUrl>
