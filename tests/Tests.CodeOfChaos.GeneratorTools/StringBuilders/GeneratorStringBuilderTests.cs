@@ -149,4 +149,32 @@ public class GeneratorStringBuilderTests {
         // Assert
         await Assert.That(generator.ToString()).IsEqualTo($"    Unindented Line{Environment.NewLine}");
     }
+
+    [Test]
+    public async Task IndentAction_ShouldIndentAndExecuteAction() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        
+        // Act
+        generator.Indent(g => g.AppendLine("Indented Text"));
+        
+        // Assert
+        await Assert.That(generator.ToString()).IsEqualTo($"    Indented Text{Environment.NewLine}");
+    }
+
+    [Test]
+    public async Task IndentAction_ShouldIndentAndExecuteAction_MultipleTimes() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        
+        // Act
+        generator.Indent(g => g.AppendLine("Indented Text"));
+        generator.Indent(g => g
+            .AppendLine("Something")
+            .Indent(g2 => g2.AppendLine("Else"))
+        );
+        
+        // Assert
+        await Assert.That(generator.ToString()).IsEqualTo($"    Indented Text{Environment.NewLine}    Something{Environment.NewLine}        Else{Environment.NewLine}");
+    }
 }
