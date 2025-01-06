@@ -97,12 +97,12 @@ public class GeneratorStringBuilderTests {
     }
 
     [Test]
-    public async Task AppendUsings_ShouldAddUsingDeclarations_IEnumerable() {
+    public async Task AppendMutlipleUsings_ShouldAddUsingDeclarations() {
         // Arrange
         var generator = new GeneratorStringBuilder();
 
         // Act
-        generator.AppendUsings(new List<string> {"System", "System.Text"});
+        generator.AppendMultipleUsings(() => new[] { "System", "System.Text" });
 
         // Assert
         await Assert.That(generator.ToString()).IsEqualTo($"using System;{Environment.NewLine}using System.Text;{Environment.NewLine}");

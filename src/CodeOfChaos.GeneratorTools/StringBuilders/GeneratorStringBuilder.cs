@@ -22,7 +22,7 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
         return this;
     }
     
-    public GeneratorStringBuilder AppendMultipleUsings(IEnumerable<Func<IEnumerable<string>>> usings) {
+    public GeneratorStringBuilder AppendMultipleUsings(params Func<IEnumerable<string>>[] usings) {
        string[] data = new HashSet<string>(usings.SelectMany(u => u())).ToArray(); 
        return AppendUsings(data);
     }
