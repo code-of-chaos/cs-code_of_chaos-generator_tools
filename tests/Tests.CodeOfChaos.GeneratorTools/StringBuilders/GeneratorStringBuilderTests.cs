@@ -97,6 +97,18 @@ public class GeneratorStringBuilderTests {
     }
 
     [Test]
+    public async Task AppendUsings_ShouldAddUsingDeclarations_IEnumerable() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+
+        // Act
+        generator.AppendUsings(new List<string> {"System", "System.Text"});
+
+        // Assert
+        await Assert.That(generator.ToString()).IsEqualTo($"using System;{Environment.NewLine}using System.Text;{Environment.NewLine}");
+    }
+
+    [Test]
     public async Task Clear_ShouldResetBuilderAndIndentation() {
         // Arrange
         var generator = new GeneratorStringBuilder();
