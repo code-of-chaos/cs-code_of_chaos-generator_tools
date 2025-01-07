@@ -2,6 +2,7 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using System.Text;
+using System;
 
 namespace CodeOfChaos.GeneratorTools;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -66,12 +67,33 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
     public GeneratorStringBuilder AppendLineIndented(string text) => Indent(g => g.AppendLine(text));
     
     public GeneratorStringBuilder AppendBody(string text) => BuilderAction(() => {
-        string[] lines = text.Split(["\r\n", "\n"], StringSplitOptions.None);
-        
-        foreach (string line in lines) _builder
-            .Append(IndentString(IndentAmount))
-            .AppendLine(line);
+        int start = 0;
+        for (int i = 0; i < text.Length; i++) {
+            if (text[i] != '\r' && text[i] != '\n') continue;
+
+            // Skip the '\n' in a "\r\n" sequence
+            if (text[i] == '\r' && i + 1 < text.Length && text[i + 1] == '\n') { i++; }
+            
+            // Append current line with indentation
+            _builder.Append(IndentString(IndentAmount)).AppendLine(text[start..i]);
+            start = i + 1;
+        }
+
+        // Append the last line if text does not end with a newline
+        if (start < text.Length) {
+            _builder.Append(IndentString(IndentAmount)).AppendLine(text[start..]);
+        }
     });
+
+    public GeneratorStringBuilder AppendBodyOld(string text) => BuilderAction(() => {
+        string[] lines = text.Split(["\r\n", "\n"], StringSplitOptions.None);
+
+        foreach (string line in lines)
+            _builder
+                .Append(IndentString(IndentAmount))
+                .AppendLine(line);
+    });
+    
     public GeneratorStringBuilder AppendBodyIndented(string text) => Indent(g => g.AppendBody(text));
     #endregion
     

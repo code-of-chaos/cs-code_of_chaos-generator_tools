@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{AF1A203C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.CodeOfChaos.GeneratorTools", "src\Tools.CodeOfChaos.GeneratorTools\Tools.CodeOfChaos.GeneratorTools.csproj", "{ADEADD97-0AFA-4D9E-970B-9FFB932949B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarks.CodeOfChaos.GeneratorTools", "src\Benchmarks.CodeOfChaos.GeneratorTools\Benchmarks.CodeOfChaos.GeneratorTools.csproj", "{89499AD4-A59C-48D9-B9DB-AFCAC7216F67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,10 +32,15 @@ Global
 		{ADEADD97-0AFA-4D9E-970B-9FFB932949B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADEADD97-0AFA-4D9E-970B-9FFB932949B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADEADD97-0AFA-4D9E-970B-9FFB932949B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89499AD4-A59C-48D9-B9DB-AFCAC7216F67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89499AD4-A59C-48D9-B9DB-AFCAC7216F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89499AD4-A59C-48D9-B9DB-AFCAC7216F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89499AD4-A59C-48D9-B9DB-AFCAC7216F67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26284571-0E09-4BAF-8C2B-DF87DCC1BA0B} = {8DD280D4-1E14-4D5E-AFE6-58DD8F079DCC}
 		{64B26DED-68C3-47FF-B409-1C8FAD4F9176} = {197E72AD-DEAB-4350-AFC3-A3BB38720BF5}
 		{ADEADD97-0AFA-4D9E-970B-9FFB932949B3} = {AF1A203C-6EF1-440E-BB3C-55B1DBFE9C19}
+		{89499AD4-A59C-48D9-B9DB-AFCAC7216F67} = {8DD280D4-1E14-4D5E-AFE6-58DD8F079DCC}
 	EndGlobalSection
 EndGlobal
