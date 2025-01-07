@@ -54,14 +54,6 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
         .Append(IndentString(IndentAmount))
         .AppendLine(text)
     );
-    public GeneratorStringBuilder AppendBody(string text) => BuilderAction(() => {
-        string[] lines = text.Split(["\r\n", "\n"], StringSplitOptions.None);
-        
-        foreach (string line in lines) _builder
-            .Append(IndentString(IndentAmount))
-            .AppendLine(line);
-    });
-    
     #endregion
     #region Auto Indented methods
     private string IndentString(int amount) => new(' ', amount * _paddingChars);
@@ -72,6 +64,15 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
         IndentAmount--;
     });
     public GeneratorStringBuilder AppendLineIndented(string text) => Indent(g => g.AppendLine(text));
+    
+    public GeneratorStringBuilder AppendBody(string text) => BuilderAction(() => {
+        string[] lines = text.Split(["\r\n", "\n"], StringSplitOptions.None);
+        
+        foreach (string line in lines) _builder
+            .Append(IndentString(IndentAmount))
+            .AppendLine(line);
+    });
+    public GeneratorStringBuilder AppendBodyIndented(string text) => Indent(g => g.AppendBody(text));
     #endregion
     
     #region ToString & Clear
