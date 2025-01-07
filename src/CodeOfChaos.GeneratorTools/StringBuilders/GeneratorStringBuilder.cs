@@ -25,9 +25,7 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
     
     
     public GeneratorStringBuilder AppendUsings(string @using) => AppendLine($"using {@using};");
-    public GeneratorStringBuilder AppendUsings(params string[] usings) => BuilderAction(() => {
-        foreach (string @using in usings) AppendUsings(@using);
-    });
+    public GeneratorStringBuilder AppendUsings(params string[] usings) => ForEach(usings, (builder, s) => builder.AppendUsings(s));
     
     public GeneratorStringBuilder AppendMultipleUsings(params Func<IEnumerable<string>>[] usings) {
        string[] data = new HashSet<string>(usings.SelectMany(u => u())).ToArray(); 
@@ -84,6 +82,31 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
     });
     
     public GeneratorStringBuilder AppendBodyIndented(string text) => Indent(g => g.AppendBody(text));
+    #endregion
+    
+    #region ForEach
+    public GeneratorStringBuilder ForEachAppendLine(IEnumerable<string> items) => ForEach(items, (g, item) => g.AppendLine(item));
+    public GeneratorStringBuilder ForEachAppendLine<T>(IEnumerable<T> items, Func<T, string> itemFormatter) => ForEach(
+        items,
+        (g, item) => g.AppendLine(itemFormatter(item))
+    );
+    
+    public GeneratorStringBuilder ForEachAppendLineIndented(IEnumerable<string> items) => ForEach(items, (g, item) => g.AppendLineIndented(item));
+    public GeneratorStringBuilder ForEachAppendLineIndented<T>(IEnumerable<T> items, Func<T, string> itemFormatter) => ForEach(
+        items,
+        (g, item) => g.AppendLineIndented(itemFormatter(item))
+    );
+    
+    public GeneratorStringBuilder ForEachAppendBody(IEnumerable<string> items) => ForEach(items, (g, item) => g.AppendBody(item));
+    public GeneratorStringBuilder ForEachAppendBody<T>(IEnumerable<T> items, Func<T, string> itemFormatter) => ForEach(
+        items,
+        (g, item) => g.AppendBody(itemFormatter(item))
+    );
+    
+    public GeneratorStringBuilder ForEach<T>(IEnumerable<T> items, Action<GeneratorStringBuilder, T> itemFormatter) => BuilderAction(() => {
+        if (items is ICollection<T> { Count: 0 }) return; // Skip iteration if no items
+        foreach (T item in items) itemFormatter(this, item);
+    });
     #endregion
     
     #region ToString & Clear

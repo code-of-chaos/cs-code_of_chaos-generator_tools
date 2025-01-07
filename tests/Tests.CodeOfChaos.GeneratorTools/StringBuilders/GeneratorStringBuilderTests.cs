@@ -321,4 +321,49 @@ public class GeneratorStringBuilderTests {
         //         Something
         // """"
     }
+    
+    [Test]
+    public async Task AppendLinePerItem_ShouldIndentAndAppendText() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        generator.AppendLine("Something special");
+        
+        // Act
+        generator.Indent(g => g.ForEachAppendLine(["Item1", "Item2"], item => $"Item: {item}"));
+        
+        // Assert  
+        await Assert.That(generator.ToString()).IsEqualTo($"Something special{Environment.NewLine}    Item: Item1{Environment.NewLine}    Item: Item2{Environment.NewLine}");
+        // equal to:
+        // """
+        // Something special
+        //     Item: Item1
+        //     Item: Item2
+        // """""
+    }
+    
+    [Test]
+    public async Task AppendLinePerItem_ShouldIndentAndAppendText_WithBuilder() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        generator.AppendLine("Something special");
+        
+        // Act
+        generator.ForEach(
+            ["Item1", "Item2"],
+            (builder, item) => {
+                builder.Indent(g1 => g1.AppendLine($"Item:").AppendLineIndented(item));
+            }
+        );
+        
+        // Assert  
+        await Assert.That(generator.ToString()).IsEqualTo($"Something special{Environment.NewLine}    Item:{Environment.NewLine}        Item1{Environment.NewLine}    Item:{Environment.NewLine}        Item2{Environment.NewLine}");
+        // equal to:
+        // """
+        // Something special
+        //     Item:
+        //          Item1
+        //     Item:
+        //          Item2
+        // """""
+    }
 }
