@@ -71,7 +71,7 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
         indentedAction(this);
         IndentAmount--;
     });
-    public GeneratorStringBuilder AppendLineIndented(string text) => Indent(_ => AppendLine(text));
+    public GeneratorStringBuilder AppendLineIndented(string text) => Indent(g => g.AppendLine(text));
     #endregion
     
     #region ToString & Clear
