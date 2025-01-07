@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>netstandard2.1</TargetFramework>
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
         <!-- Main package metadata -->
         <PackageId>CodeOfChaos.GeneratorTools</PackageId>
-        <Version>0.6.0</Version>
+        <Version>1.0.0</Version>
         <Authors>Anna Sas</Authors>
         <Description>A library to help you create code generators more easily</Description>
         <PackageProjectUrl>https://github.com/code-of-chaos/cs-code_of_chaos-generator_tools/</PackageProjectUrl>
@@ -24,7 +24,7 @@
 
     <ItemGroup>
         <InternalsVisibleTo Include="Benchmarks.CodeOfChaos.GeneratorTools" />
-    </ItemGroup>
+    </ItemGroup> 
 
     <!-- Ensure important files are packaged correctly -->
     <ItemGroup Condition="'$(Configuration)' != 'Benchmark'">
