@@ -7,7 +7,6 @@ using Benchmarks.CodeOfChaos.GeneratorTools.OldImplementations;
 using CodeOfChaos.GeneratorTools;
 
 namespace Benchmarks.CodeOfChaos.GeneratorTools;
-
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
@@ -21,7 +20,7 @@ public class Testing {
         builder.AppendBody("Hello");
         return builder;
     }
-    
+
     [Benchmark(OperationsPerInvoke = 1000)]
     public GeneratorStringBuilder GeneratorStringBuilder_AppendBody_MultiLine() {
         var builder = new GeneratorStringBuilder();
@@ -30,35 +29,36 @@ public class Testing {
             Curabitur pharetra turpis et ullamcorper interdum.
             Nunc placerat dolor ac quam gravida, sit amet tempor dui molestie.
             Proin id enim et mauris imperdiet condimentum.
-            
+
             Nam auctor dui ac efficitur pellentesque.
             Vestibulum ac arcu quis enim auctor sagittis at in nisl.
             Praesent ut libero eu arcu lacinia accumsan non ut purus.
-            
+
             Ut ut leo ut odio tempus vulputate.
             Sed blandit dui sit amet faucibus elementum.
             Fusce tincidunt mauris in egestas maximus.
-            
+
             Phasellus in quam vel augue aliquet egestas.
             Aliquam sed ipsum gravida, sagittis velit ut, posuere magna.
             Cras ac dolor venenatis, volutpat nibh nec, commodo diam.
             In at magna ullamcorper tortor aliquet commodo in non elit.
             Integer convallis dolor id gravida dapibus.
-            
+
             Fusce aliquet nisi ut scelerisque porttitor.
             Quisque ut mauris condimentum, blandit odio at, semper metus.
             Etiam eu mi non enim posuere varius eget ac nibh.
             """);
+
         return builder;
     }
-    
+
     [Benchmark(OperationsPerInvoke = 1000)]
     public GeneratorStringBuilder GeneratorStringBuilder_AppendBodyOld_OneLine() {
         var builder = new GeneratorStringBuilder();
         builder.AppendBodyOld("Hello");
         return builder;
     }
-    
+
     [Benchmark(OperationsPerInvoke = 1000)]
     public GeneratorStringBuilder GeneratorStringBuilder_AppendBodyOld_MultiLine() {
         var builder = new GeneratorStringBuilder();
@@ -86,10 +86,10 @@ public class Testing {
             Quisque ut mauris condimentum, blandit odio at, semper metus.
             Etiam eu mi non enim posuere varius eget ac nibh.
             """);
+
         return builder;
     }
 }
-
 
 // | Method                                         | Mean      | Error     | StdDev    | Ratio | RatioSD | Gen0   | Gen1   | Allocated | Alloc Ratio |
 // |----------------------------------------------- |----------:|----------:|----------:|------:|--------:|-------:|-------:|----------:|------------:|

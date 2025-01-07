@@ -36,10 +36,10 @@ public class GeneratorStringBuilderTests {
     public async Task IndentAndAppend_ShouldIndentTextBasedOnPadding() {
         // Arrange
         var generator = new GeneratorStringBuilder(2);// Padding of 2 spaces per indent level
-        
+
         // Act
         generator.Indent(g => g.AppendLine("Indented Text"));
-        
+
         // Assert
         await Assert.That(generator.ToString()).IsEqualTo($"  Indented Text{Environment.NewLine}");
     }
@@ -50,8 +50,8 @@ public class GeneratorStringBuilderTests {
         var generator = new GeneratorStringBuilder(2);// Padding of 2 spaces per indent level
 
         // Act
-        generator.Indent(g => 
-            g.Indent(g1 => 
+        generator.Indent(g =>
+            g.Indent(g1 =>
                 g1.AppendLine("Double Indented Text")
             )
         );
@@ -100,12 +100,12 @@ public class GeneratorStringBuilderTests {
     }
 
     [Test]
-    public async Task AppendMutlipleUsings_ShouldAddUsingDeclarations() {
+    public async Task AppendMultipleUsings_ShouldAddUsingDeclarations() {
         // Arrange
         var generator = new GeneratorStringBuilder();
 
         // Act
-        generator.AppendMultipleUsings(() => new[] { "System", "System.Text" });
+        generator.AppendMultipleUsings(["System", "System.Text"]);
 
         // Assert
         await Assert.That(generator.ToString()).IsEqualTo($"using System;{Environment.NewLine}using System.Text;{Environment.NewLine}");
@@ -156,10 +156,10 @@ public class GeneratorStringBuilderTests {
     public async Task IndentAction_ShouldIndentAndExecuteAction() {
         // Arrange
         var generator = new GeneratorStringBuilder();
-        
+
         // Act
         generator.Indent(g => g.AppendLine("Indented Text"));
-        
+
         // Assert
         await Assert.That(generator.ToString()).IsEqualTo($"    Indented Text{Environment.NewLine}");
     }
@@ -168,31 +168,31 @@ public class GeneratorStringBuilderTests {
     public async Task IndentAction_ShouldIndentAndExecuteAction_MultipleTimes() {
         // Arrange
         var generator = new GeneratorStringBuilder();
-        
+
         // Act
         generator.Indent(g => g.AppendLine("Indented Text"));
         generator.Indent(g => g
             .AppendLine("Something")
             .Indent(g2 => g2.AppendLine("Else"))
         );
-        
+
         // Assert
         await Assert.That(generator.ToString()).IsEqualTo($"    Indented Text{Environment.NewLine}    Something{Environment.NewLine}        Else{Environment.NewLine}");
     }
-    
+
     [Test]
     public async Task AppendBody_ShouldIndentAndAppendText() {
         // Arrange
         var generator = new GeneratorStringBuilder();
         generator.AppendLine("Something special");
-        
-        
+
+
         // Act
         generator.Indent(g => g.AppendBody("""
-        SomeData
-            Something
-        """));
-        
+            SomeData
+                Something
+            """));
+
         // Assert
         await Assert.That(generator.ToString()).IsEqualTo($"Something special{Environment.NewLine}    SomeData{Environment.NewLine}        Something{Environment.NewLine}");
         // equal to:
@@ -202,7 +202,7 @@ public class GeneratorStringBuilderTests {
         //         Something
         // """"
     }
-    
+
     [Test]
     public async Task AppendBody_ShouldIndentAndAppendText_WithWindowsLineEndings() {
         // Arrange
@@ -298,20 +298,20 @@ public class GeneratorStringBuilderTests {
         string expectedOutput = $"Something special{Environment.NewLine}    SomeData{Environment.NewLine}    LineWithUnix{Environment.NewLine}    LineWithOldMac{Environment.NewLine}";
         await Assert.That(generator.ToString()).IsEqualTo(expectedOutput);
     }
-    
+
     [Test]
     public async Task AppendBodyIndented_ShouldIndentAndAppendText() {
         // Arrange
         var generator = new GeneratorStringBuilder();
         generator.AppendLine("Something special");
-        
-        
+
+
         // Act
         generator.AppendBodyIndented("""
             SomeData
                 Something
             """);
-        
+
         // Assert
         await Assert.That(generator.ToString()).IsEqualTo($"Something special{Environment.NewLine}    SomeData{Environment.NewLine}        Something{Environment.NewLine}");
         // equal to:
@@ -321,16 +321,16 @@ public class GeneratorStringBuilderTests {
         //         Something
         // """"
     }
-    
+
     [Test]
     public async Task AppendLinePerItem_ShouldIndentAndAppendText() {
         // Arrange
         var generator = new GeneratorStringBuilder();
         generator.AppendLine("Something special");
-        
+
         // Act
-        generator.Indent(g => g.ForEachAppendLine(["Item1", "Item2"], item => $"Item: {item}"));
-        
+        generator.Indent(g => g.ForEachAppendLine(["Item1", "Item2"], itemFormatter: item => $"Item: {item}"));
+
         // Assert  
         await Assert.That(generator.ToString()).IsEqualTo($"Something special{Environment.NewLine}    Item: Item1{Environment.NewLine}    Item: Item2{Environment.NewLine}");
         // equal to:
@@ -340,21 +340,21 @@ public class GeneratorStringBuilderTests {
         //     Item: Item2
         // """""
     }
-    
+
     [Test]
     public async Task AppendLinePerItem_ShouldIndentAndAppendText_WithBuilder() {
         // Arrange
         var generator = new GeneratorStringBuilder();
         generator.AppendLine("Something special");
-        
+
         // Act
         generator.ForEach(
             ["Item1", "Item2"],
-            (builder, item) => {
-                builder.Indent(g1 => g1.AppendLine($"Item:").AppendLineIndented(item));
+            itemFormatter: (builder, item) => {
+                builder.Indent(g1 => g1.AppendLine("Item:").AppendLineIndented(item));
             }
         );
-        
+
         // Assert  
         await Assert.That(generator.ToString()).IsEqualTo($"Something special{Environment.NewLine}    Item:{Environment.NewLine}        Item1{Environment.NewLine}    Item:{Environment.NewLine}        Item2{Environment.NewLine}");
         // equal to:
