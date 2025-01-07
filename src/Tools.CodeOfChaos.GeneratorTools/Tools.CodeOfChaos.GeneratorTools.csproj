@@ -10,6 +10,10 @@
 
     <ItemGroup>
         <PackageReference Include="CodeOfChaos.CliArgsParser.Library" Version="4.3.4"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>

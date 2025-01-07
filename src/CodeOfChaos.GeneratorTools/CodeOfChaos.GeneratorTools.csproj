@@ -1,15 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
-        <LangVersion>latest</LangVersion>
-        <ImplicitUsings>enable</ImplicitUsings>
+        <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+        <IsPackable>true</IsPackable>
         <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+
+        <DevelopmentDependency>true</DevelopmentDependency>
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+        <IsRoslynComponent>true</IsRoslynComponent>
 
         <!-- Main package metadata -->
         <PackageId>CodeOfChaos.GeneratorTools</PackageId>
-        <Version>1.0.2</Version>
+        <Version>1.0.3</Version>
         <Authors>Anna Sas</Authors>
         <Description>A library to help you create code generators more easily</Description>
         <PackageProjectUrl>https://github.com/code-of-chaos/cs-code_of_chaos-generator_tools/</PackageProjectUrl>
@@ -39,7 +42,10 @@
         <!-- Roslyn dependencies (kept private to avoid propagation to consumers) -->
         <PackageReference Include="IndexRange" Version="1.0.3" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="IsExternalInit" Version="1.0.3" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.12.0" PrivateAssets="all" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" PrivateAssets="all" />
     </ItemGroup>
@@ -47,8 +53,8 @@
     <!-- Ensure DLL is packaged as an analyzer -->
     <ItemGroup>
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" />
-        <None Include="$(PkgIsExternalInit)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-        <None Include="$(PkgIndexRange)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PkgIsExternalInit)\lib\$(TragetFramework)\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PkgIndexRange)\lib\$(TragetFramework)\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>
 
 </Project>
