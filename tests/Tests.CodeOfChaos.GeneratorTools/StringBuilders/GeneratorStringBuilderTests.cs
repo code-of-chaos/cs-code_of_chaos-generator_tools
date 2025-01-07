@@ -180,26 +180,49 @@ public class GeneratorStringBuilderTests {
         await Assert.That(generator.ToString()).IsEqualTo($"    Indented Text{Environment.NewLine}    Something{Environment.NewLine}        Else{Environment.NewLine}");
     }
     
-[Test]
-public async Task AppendBody_ShouldIndentAndAppendText() {
-    // Arrange
-    var generator = new GeneratorStringBuilder();
-    generator.AppendLine("Something special");
+    [Test]
+    public async Task AppendBody_ShouldIndentAndAppendText() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        generator.AppendLine("Something special");
+        
+        
+        // Act
+        generator.Indent(g => g.AppendBody("""
+        SomeData
+            Something
+        """));
+        
+        // Assert
+        await Assert.That(generator.ToString()).IsEqualTo($"Something special{Environment.NewLine}    SomeData{Environment.NewLine}        Something{Environment.NewLine}");
+        // equal to:
+        // """
+        // Something special
+        //     SomeData
+        //         Something
+        // """"
+    }
     
-    
-    // Act
-    generator.Indent(g => g.AppendBody("""
-    SomeData
-        Something
-    """));
-    
-    // Assert
-    await Assert.That(generator.ToString()).IsEqualTo($"Something special{Environment.NewLine}    SomeData{Environment.NewLine}        Something{Environment.NewLine}");
-    // equal to:
-    // """
-    // Something special
-    //     SomeData
-    //         Something
-    // """"
-}
+    [Test]
+    public async Task AppendBodyIndented_ShouldIndentAndAppendText() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        generator.AppendLine("Something special");
+        
+        
+        // Act
+        generator.AppendBodyIndented("""
+            SomeData
+                Something
+            """);
+        
+        // Assert
+        await Assert.That(generator.ToString()).IsEqualTo($"Something special{Environment.NewLine}    SomeData{Environment.NewLine}        Something{Environment.NewLine}");
+        // equal to:
+        // """
+        // Something special
+        //     SomeData
+        //         Something
+        // """"
+    }
 }
