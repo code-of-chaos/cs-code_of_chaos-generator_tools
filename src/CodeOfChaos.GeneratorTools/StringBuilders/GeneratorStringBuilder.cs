@@ -198,7 +198,7 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
 
         // Append the last line if text does not end with a newline
         if (start < text.Length) {
-            _builder.Append(indent).AppendLine(text[start..]);
+            _builder.Append(indent).AppendLine(text.Substring(start));
         }
     });
 
