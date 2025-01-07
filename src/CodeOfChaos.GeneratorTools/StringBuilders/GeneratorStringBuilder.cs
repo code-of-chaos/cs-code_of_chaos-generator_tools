@@ -9,18 +9,25 @@ namespace CodeOfChaos.GeneratorTools;
 // ---------------------------------------------------------------------------------------------------------------------
 public class GeneratorStringBuilder(int paddingChars = 4) {
     private readonly int _paddingChars = paddingChars > 0 ? paddingChars : 4;
-    private readonly StringBuilder _stringBuilder = new();
+    private readonly StringBuilder _builder = new();
     private int _indent;
     private int IndentAmount {
         get => _indent;
         set => _indent = value <= 0 ? 0 : value;
     }
-    
-    public GeneratorStringBuilder AppendUsings(string @using) => AppendLine($"using {@using};");
-    public GeneratorStringBuilder AppendUsings(params Span<string> usings) {
-        foreach (string @using in usings) AppendUsings(@using);
+    // -----------------------------------------------------------------------------------------------------------------
+    // Methods
+    // -----------------------------------------------------------------------------------------------------------------
+    private GeneratorStringBuilder BuilderAction(Action action) {
+        action();
         return this;
     }
+    
+    
+    public GeneratorStringBuilder AppendUsings(string @using) => AppendLine($"using {@using};");
+    public GeneratorStringBuilder AppendUsings(params string[] usings) => BuilderAction(() => {
+        foreach (string @using in usings) AppendUsings(@using);
+    });
     
     public GeneratorStringBuilder AppendMultipleUsings(params Func<IEnumerable<string>>[] usings) {
        string[] data = new HashSet<string>(usings.SelectMany(u => u())).ToArray(); 
@@ -31,72 +38,33 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
     public GeneratorStringBuilder AppendComment(string comment) => Append($" // {comment}");
     public GeneratorStringBuilder AppendLineComment(string comment) => AppendLine($"// {comment}");
     public GeneratorStringBuilder AppendNamespace(string name) => AppendLine($"namespace {name};");
-    public GeneratorStringBuilder AppendNullable() => AppendLine("#nullable enable");
+    public GeneratorStringBuilder AppendNullableEnable() => AppendLine("#nullable enable");
 
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
     // -----------------------------------------------------------------------------------------------------------------
-    #region Append methods(stringbuilder + indent)
-    public GeneratorStringBuilder Append() {
-        _stringBuilder.Append(IndentString(IndentAmount));
-        return this;
-    }
-
-    public GeneratorStringBuilder Append(char c) {
-        _stringBuilder.Append(IndentString(IndentAmount)).Append(c);
-        return this;
-    }
-
-    public GeneratorStringBuilder Append(string text) {
-        _stringBuilder.Append(IndentString(IndentAmount)).Append(text);
-        return this;
-    }
-
-    public GeneratorStringBuilder AppendLine() => AppendLine(string.Empty);
-
-    public GeneratorStringBuilder AppendLine(string text) {
-        _stringBuilder.Append(IndentString(IndentAmount)).AppendLine(text);
-        return this;
-    }
+    #region Append (straight stringbuilder)
+    public GeneratorStringBuilder Append(char c) => BuilderAction(() => _builder.Append(c));
+    public GeneratorStringBuilder Append(string text) => BuilderAction(() => _builder.Append(text));
+    #endregion    
+    
+    #region AppendLine methods(stringbuilder + indent)
+    public GeneratorStringBuilder AppendLine() => BuilderAction(() => _builder.AppendLine());
+    public GeneratorStringBuilder AppendLine(string text) => BuilderAction(() => _builder.Append(IndentString(IndentAmount)).AppendLine(text));
     #endregion
     #region Auto Indented methods
     private string IndentString(int amount) => new(' ', amount * _paddingChars);
 
-    public GeneratorStringBuilder UnIndent() {
-        IndentAmount--;
-        return this;
-    }
-
-    public GeneratorStringBuilder UnIndentLine(string text) {
-        _stringBuilder.Append(IndentString(--IndentAmount)).AppendLine(text);
-        return this;
-    }
-
-    public GeneratorStringBuilder Indent() {
+    public GeneratorStringBuilder Indent(Action<GeneratorStringBuilder> indentedAction) => BuilderAction(() => {
         IndentAmount++;
-        return this;
-    }
-
-    public GeneratorStringBuilder Indent(Action<GeneratorStringBuilder> indentedAction) {
-        Indent();
         indentedAction(this);
-        UnIndent();
-        return this;
-    }
-    public GeneratorStringBuilder IndentLine(string text) {
-        _stringBuilder.Append(IndentString(++IndentAmount)).AppendLine(text);
-        return this;
-    }
+        IndentAmount--;
+    });
+    public GeneratorStringBuilder AppendLineIndented(string text) => Indent(_ => AppendLine(text));
     #endregion
-
-    public GeneratorStringBuilder AppendLineAndIndent(string text, Action<GeneratorStringBuilder> indentedAction) {
-        AppendLine(text);
-        Indent(indentedAction);
-        return this;
-    }
     
     #region ToString & Clear
-    public override string ToString() => _stringBuilder.ToString();
+    public override string ToString() => _builder.ToString();
 
     public string ToStringAndClear() {
         string result = ToString();
@@ -105,7 +73,7 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
     }
 
     public GeneratorStringBuilder Clear() {
-        _stringBuilder.Clear();
+        _builder.Clear();
         IndentAmount = 0;
         return this;
     }

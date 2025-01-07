@@ -36,40 +36,43 @@ public class GeneratorStringBuilderTests {
     public async Task IndentAndAppend_ShouldIndentTextBasedOnPadding() {
         // Arrange
         var generator = new GeneratorStringBuilder(2);// Padding of 2 spaces per indent level
-        generator.Indent();
-
+        
         // Act
-        generator.Append("Indented Text");
-
+        generator.Indent(g => g.AppendLine("Indented Text"));
+        
         // Assert
-        await Assert.That(generator.ToString()).IsEqualTo("  Indented Text");
+        await Assert.That(generator.ToString()).IsEqualTo($"  Indented Text{Environment.NewLine}");
     }
 
     [Test]
     public async Task MultipleIndentations_ShouldApplyCorrectIndentLevels() {
         // Arrange
         var generator = new GeneratorStringBuilder(2);// Padding of 2 spaces per indent level
-        generator.Indent().Indent();
 
         // Act
-        generator.Append("Double Indented Text");
+        generator.Indent(g => 
+            g.Indent(g1 => 
+                g1.AppendLine("Double Indented Text")
+            )
+        );
 
         // Assert
-        await Assert.That(generator.ToString()).IsEqualTo("    Double Indented Text");
+        await Assert.That(generator.ToString()).IsEqualTo($"    Double Indented Text{Environment.NewLine}");
     }
 
     [Test]
     public async Task UnIndent_ShouldReduceIndentation() {
         // Arrange
         var generator = new GeneratorStringBuilder(2);
-        generator.Indent().Indent();
 
         // Act
-        generator.UnIndent();
-        generator.Append("Text");
+        generator.Indent(g => g
+            .Indent(_ => {})
+            .AppendLine("Text")
+        );
 
         // Assert
-        await Assert.That(generator.ToString()).IsEqualTo("  Text");
+        await Assert.That(generator.ToString()).IsEqualTo($"  Text{Environment.NewLine}");
     }
 
     [Test]
@@ -113,7 +116,7 @@ public class GeneratorStringBuilderTests {
         // Arrange
         var generator = new GeneratorStringBuilder();
         generator.AppendLine("Hello");
-        generator.Indent();
+        generator.Indent(_ => {});
 
         // Act
         generator.Clear();
@@ -143,23 +146,10 @@ public class GeneratorStringBuilderTests {
         var generator = new GeneratorStringBuilder();
 
         // Act
-        generator.IndentLine("Indented Line");
+        generator.AppendLineIndented("Indented Line");
 
         // Assert
         await Assert.That(generator.ToString()).IsEqualTo($"    Indented Line{Environment.NewLine}");
-    }
-
-    [Test]
-    public async Task UnIndentLine_ShouldReduceIndentAndAddLine() {
-        // Arrange
-        var generator = new GeneratorStringBuilder();
-        generator.Indent().Indent();
-
-        // Act
-        generator.UnIndentLine("Unindented Line");
-
-        // Assert
-        await Assert.That(generator.ToString()).IsEqualTo($"    Unindented Line{Environment.NewLine}");
     }
 
     [Test]
