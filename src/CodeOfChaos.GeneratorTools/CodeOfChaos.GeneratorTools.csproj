@@ -11,7 +11,7 @@
 
         <!-- Main package metadata -->
         <PackageId>CodeOfChaos.GeneratorTools</PackageId>
-        <Version>1.0.7</Version>
+        <Version>1.1.0-preview.1</Version>
         <Authors>Anna Sas</Authors>
         <Description>A library to help you create code generators more easily</Description>
         <PackageProjectUrl>https://github.com/code-of-chaos/cs-code_of_chaos-generator_tools/</PackageProjectUrl>
@@ -38,9 +38,15 @@
 
     <!-- Reference dependencies -->
     <ItemGroup>
+        <PackageReference Include="IsExternalInit" Version="1.0.3" GeneratePathProperty="true" />
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" />
         <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.12.0" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
     </ItemGroup>
+
+    <ItemGroup>
+        <None Include="$(PkgIsExternalInit)/**/*.dll" Pack="true" PackagePath="lib/netstandard2.0/" />
+    </ItemGroup>
+    
 
 </Project>
