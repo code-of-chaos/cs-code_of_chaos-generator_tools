@@ -21,6 +21,10 @@
         <PackageReadmeFile Condition="'$(Configuration)' != 'Benchmark'">README.md</PackageReadmeFile>
         <PackageIcon Condition="'$(Configuration)' != 'Benchmark'">icon.png</PackageIcon>
     </PropertyGroup>
+    
+    <ItemGroup>
+        <InternalsVisibleTo Include="Benchmarks.CodeOfChaos.GeneratorTools"/>
+    </ItemGroup>
 
     <!-- Ensure important files are packaged correctly -->
     <ItemGroup Condition="'$(Configuration)' != 'Benchmark'">

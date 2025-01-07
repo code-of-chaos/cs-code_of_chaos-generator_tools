@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
+using Benchmarks.CodeOfChaos.GeneratorTools.OldImplementations;
 using CodeOfChaos.GeneratorTools;
 
 namespace Benchmarks.CodeOfChaos.GeneratorTools;
@@ -92,7 +93,7 @@ public class Testing {
 
 // | Method                                         | Mean      | Error     | StdDev    | Ratio | RatioSD | Gen0   | Gen1   | Allocated | Alloc Ratio |
 // |----------------------------------------------- |----------:|----------:|----------:|------:|--------:|-------:|-------:|----------:|------------:|
-// | GeneratorStringBuilder_AppendBody_OneLine      | 0.0307 ns | 0.0005 ns | 0.0005 ns |  1.00 |    0.02 | 0.0000 |      - |         - |          NA |
-// | GeneratorStringBuilder_AppendBodyOld_OneLine   | 0.0514 ns | 0.0008 ns | 0.0006 ns |  1.68 |    0.03 | 0.0000 |      - |         - |          NA |
-// | GeneratorStringBuilder_AppendBody_MultiLine    | 1.4546 ns | 0.0122 ns | 0.0102 ns | 47.45 |    0.79 | 0.0004 | 0.0000 |       7 B |          NA |
-// | GeneratorStringBuilder_AppendBodyOld_MultiLine | 2.2029 ns | 0.0342 ns | 0.0303 ns | 71.86 |    1.45 | 0.0004 | 0.0000 |       7 B |          NA |
+// | GeneratorStringBuilder_AppendBody_OneLine      | 0.0342 ns | 0.0006 ns | 0.0005 ns |  1.00 |    0.02 | 0.0000 |      - |         - |          NA |
+// | GeneratorStringBuilder_AppendBodyOld_OneLine   | 0.0817 ns | 0.0009 ns | 0.0007 ns |  2.39 |    0.04 | 0.0000 |      - |         - |          NA |
+// | GeneratorStringBuilder_AppendBody_MultiLine    | 1.2728 ns | 0.0093 ns | 0.0082 ns | 37.26 |    0.62 | 0.0004 | 0.0000 |       6 B |          NA |
+// | GeneratorStringBuilder_AppendBodyOld_MultiLine | 2.7955 ns | 0.0407 ns | 0.0340 ns | 81.84 |    1.58 | 0.0007 | 0.0000 |      11 B |          NA |
