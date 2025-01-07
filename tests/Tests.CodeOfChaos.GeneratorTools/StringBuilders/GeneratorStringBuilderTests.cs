@@ -204,6 +204,102 @@ public class GeneratorStringBuilderTests {
     }
     
     [Test]
+    public async Task AppendBody_ShouldIndentAndAppendText_WithWindowsLineEndings() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        generator.AppendLine("Something special");
+
+        const string input = "SomeData\r\n    Something\r\n";
+
+        // Act
+        generator.Indent(g => g.AppendBody(input));
+
+        // Assert
+        string expectedOutput = $"Something special{Environment.NewLine}    SomeData{Environment.NewLine}        Something{Environment.NewLine}";
+        await Assert.That(generator.ToString()).IsEqualTo(expectedOutput);
+    }
+
+    [Test]
+    public async Task AppendBody_ShouldIndentAndAppendText_WithUnixLineEndings() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        generator.AppendLine("Something special");
+
+        const string input = "SomeData\n    Something\n";
+
+        // Act
+        generator.Indent(g => g.AppendBody(input));
+
+        // Assert
+        string expectedOutput = $"Something special{Environment.NewLine}    SomeData{Environment.NewLine}        Something{Environment.NewLine}";
+        await Assert.That(generator.ToString()).IsEqualTo(expectedOutput);
+    }
+
+    [Test]
+    public async Task AppendBody_ShouldIndentAndAppendText_WithOldMacLineEndings() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        generator.AppendLine("Something special");
+
+        const string input = "SomeData\r    Something\r";
+
+        // Act
+        generator.Indent(g => g.AppendBody(input));
+
+        // Assert
+        string expectedOutput = $"Something special{Environment.NewLine}    SomeData{Environment.NewLine}        Something{Environment.NewLine}";
+        await Assert.That(generator.ToString()).IsEqualTo(expectedOutput);
+    }
+
+    [Test]
+    public async Task AppendBody_ShouldHandleSingleLineInput() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        generator.AppendLine("Something special");
+
+        const string input = "SomeData";
+
+        // Act
+        generator.Indent(g => g.AppendBody(input));
+
+        // Assert
+        string expectedOutput = $"Something special{Environment.NewLine}    SomeData{Environment.NewLine}";
+        await Assert.That(generator.ToString()).IsEqualTo(expectedOutput);
+    }
+
+    [Test]
+    public async Task AppendBody_ShouldHandleEmptyInput() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        generator.AppendLine("Something special");
+
+        const string input = "";
+
+        // Act
+        generator.Indent(g => g.AppendBody(input));
+
+        // Assert
+        string expectedOutput = $"Something special{Environment.NewLine}";
+        await Assert.That(generator.ToString()).IsEqualTo(expectedOutput);
+    }
+
+    [Test]
+    public async Task AppendBody_ShouldHandleMixedNewlineStyles() {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        generator.AppendLine("Something special");
+
+        string input = "SomeData\r\nLineWithUnix\nLineWithOldMac\r";
+
+        // Act
+        generator.Indent(g => g.AppendBody(input));
+
+        // Assert
+        string expectedOutput = $"Something special{Environment.NewLine}    SomeData{Environment.NewLine}    LineWithUnix{Environment.NewLine}    LineWithOldMac{Environment.NewLine}";
+        await Assert.That(generator.ToString()).IsEqualTo(expectedOutput);
+    }
+    
+    [Test]
     public async Task AppendBodyIndented_ShouldIndentAndAppendText() {
         // Arrange
         var generator = new GeneratorStringBuilder();

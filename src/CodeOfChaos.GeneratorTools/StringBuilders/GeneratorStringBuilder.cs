@@ -71,11 +71,14 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
         for (int i = 0; i < text.Length; i++) {
             if (text[i] != '\r' && text[i] != '\n') continue;
 
-            // Skip the '\n' in a "\r\n" sequence
-            if (text[i] == '\r' && i + 1 < text.Length && text[i + 1] == '\n') { i++; }
-            
             // Append current line with indentation
             _builder.Append(IndentString(IndentAmount)).AppendLine(text[start..i]);
+
+            // If this is a "\r\n" sequence, skip the '\n'
+            if (text[i] == '\r' && i + 1 < text.Length && text[i + 1] == '\n') {
+                i++;
+            }
+
             start = i + 1;
         }
 
