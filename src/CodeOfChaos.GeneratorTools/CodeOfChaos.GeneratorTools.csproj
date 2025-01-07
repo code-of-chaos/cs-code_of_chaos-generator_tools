@@ -8,7 +8,7 @@
 
         <!-- Main package metadata -->
         <PackageId>CodeOfChaos.GeneratorTools</PackageId>
-        <Version>0.3.0</Version>
+        <Version>0.4.0</Version>
         <Authors>Anna Sas</Authors>
         <Description>A library to help you create code generators more easily</Description>
         <PackageProjectUrl>https://github.com/code-of-chaos/cs-code_of_chaos-generator_tools/</PackageProjectUrl>
@@ -23,7 +23,7 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <InternalsVisibleTo Include="Benchmarks.CodeOfChaos.GeneratorTools"/>
+        <InternalsVisibleTo Include="Benchmarks.CodeOfChaos.GeneratorTools" />
     </ItemGroup>
 
     <!-- Ensure important files are packaged correctly -->
@@ -36,7 +36,7 @@
     <!-- Reference dependencies -->
     <ItemGroup>
         <!-- Roslyn dependencies (kept private to avoid propagation to consumers) -->
-        <PackageReference Include="IndexRange" Version="1.0.3" PrivateAssets="all" GeneratePathProperty="true"  />
+        <PackageReference Include="IndexRange" Version="1.0.3" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="IsExternalInit" Version="1.0.3" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" PrivateAssets="all" />
         <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.12.0" PrivateAssets="all" />
