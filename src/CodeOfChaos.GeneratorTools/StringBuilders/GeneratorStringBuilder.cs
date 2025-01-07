@@ -50,7 +50,18 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
     
     #region AppendLine methods(stringbuilder + indent)
     public GeneratorStringBuilder AppendLine() => BuilderAction(() => _builder.AppendLine());
-    public GeneratorStringBuilder AppendLine(string text) => BuilderAction(() => _builder.Append(IndentString(IndentAmount)).AppendLine(text));
+    public GeneratorStringBuilder AppendLine(string text) => BuilderAction(() => _builder
+        .Append(IndentString(IndentAmount))
+        .AppendLine(text)
+    );
+    public GeneratorStringBuilder AppendBody(string text) => BuilderAction(() => {
+        string[] lines = text.Split(["\r\n", "\n"], StringSplitOptions.None);
+        
+        foreach (string line in lines) _builder
+            .Append(IndentString(IndentAmount))
+            .AppendLine(line);
+    });
+    
     #endregion
     #region Auto Indented methods
     private string IndentString(int amount) => new(' ', amount * _paddingChars);
