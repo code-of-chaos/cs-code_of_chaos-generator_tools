@@ -52,7 +52,7 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
     ///     on the internal `StringBuilder` or other components of the `GeneratorStringBuilder`.
     /// </param>
     /// <returns>The current instance of <see cref="GeneratorStringBuilder" />, allowing for method chaining.</returns>
-    internal GeneratorStringBuilder BuilderAction(Action action) {
+    private GeneratorStringBuilder BuilderAction(Action action) {
         action();
         return this;
     }
