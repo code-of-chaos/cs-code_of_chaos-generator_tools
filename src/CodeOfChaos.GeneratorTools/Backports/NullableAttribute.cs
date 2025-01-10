@@ -103,10 +103,6 @@ public sealed class DoesNotReturnIfAttribute : Attribute {
     public bool ParameterValue { get; }
 }
 
-#endif
-
-#if !NETCOREAPP
-
 /// <summary>
 ///     Specifies that the method or property will ensure that the listed field and property members have not-null
 ///     values.
@@ -169,5 +165,4 @@ public sealed class MemberNotNullWhenAttribute : Attribute {
     /// <summary>Gets field or property member names.</summary>
     public string[] Members { get; }
 }
-
 #endif

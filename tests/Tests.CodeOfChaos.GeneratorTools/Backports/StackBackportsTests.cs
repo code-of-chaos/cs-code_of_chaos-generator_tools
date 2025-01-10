@@ -15,7 +15,7 @@ public class StackBackportsTests {
         var stack = new Stack<int>();
 
         // Act
-        bool result = StackBackports.TryPop(stack,out int value);
+        bool result = StackBackports.TryPopBackport(stack,out int value);
 
         // Assert
         await Assert.That(result).IsFalse().Because("TryPop should return false for an empty stack.");
@@ -31,7 +31,7 @@ public class StackBackportsTests {
         stack.Push(30);// Top element
 
         // Act
-        bool result = StackBackports.TryPop(stack,out int value);
+        bool result = StackBackports.TryPopBackport(stack,out int value);
 
         // Assert
         await Assert.That(result).IsTrue().Because("TryPop should return true for a non-empty stack.");
@@ -46,7 +46,7 @@ public class StackBackportsTests {
         var stack = new Stack<string>();
 
         // Act
-        bool result = StackBackports.TryPeek(stack, out string? value);
+        bool result = StackBackports.TryPeekBackport(stack, out string? value);
 
         // Assert
         await Assert.That(result).IsFalse().Because("TryPeek should return false for an empty stack.");
@@ -63,7 +63,7 @@ public class StackBackportsTests {
         stack.Push("top"); // Top element
 
         // Act
-        bool result = StackBackports.TryPeek(stack, out string? value);
+        bool result = StackBackports.TryPeekBackport(stack, out string? value);
 
         // Assert
         await Assert.That(result).IsTrue().Because("TryPeek should return true for a non-empty stack.");
@@ -79,7 +79,7 @@ public class StackBackportsTests {
         stack.Push(10);
 
         // Act
-        bool result = StackBackports.TryPeek(stack, out int? value);
+        bool result = StackBackports.TryPeekBackport(stack, out int? value);
 
         // Assert
         await Assert.That(result).IsTrue().Because("TryPeek should return true for a non-empty stack (nullable).");
@@ -94,8 +94,8 @@ public class StackBackportsTests {
         stack.Push(42);
 
         // Act
-        bool resultPeek = StackBackports.TryPeek(stack, out int resultPeekValue);
-        bool resultPop = StackBackports.TryPop(stack,out int resultPopValue);
+        bool resultPeek = StackBackports.TryPeekBackport(stack, out int resultPeekValue);
+        bool resultPop = StackBackports.TryPopBackport(stack,out int resultPopValue);
 
         // Assert
         await Assert.That(resultPeek).IsTrue().Because("TryPeek should succeed.");

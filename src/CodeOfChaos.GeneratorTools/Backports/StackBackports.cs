@@ -17,35 +17,24 @@ namespace CodeOfChaos.GeneratorTools;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public static class StackBackports {
+    // Done so we can easily 
     #if NETSTANDARD2_0
-    public static bool TryPop<T>(this Stack<T> stack, [NotNullWhen(true)] out T? result) {
+    public static bool TryPop<T>(this Stack<T> stack, [NotNullWhen(true)] out T? result) => TryPopBackport(stack, out result);
+    #endif
+    public static bool TryPopBackport<T>(Stack<T> stack, [NotNullWhen(true)] out T? result) {
         result = default;
         if (stack.Count == 0) return false;
         result = stack.Pop();
         return result is not null;
     }
     
-    public static bool TryPeek<T>(this Stack<T> stack, [NotNullWhen(true)] out T? result) {
+    #if NETSTANDARD2_0
+    public static bool TryPeek<T>(this Stack<T> stack, [NotNullWhen(true)] out T? result) => TryPeekBackport(stack, out result);
+    #endif
+    public static bool TryPeekBackport<T>(Stack<T> stack, [NotNullWhen(true)] out T? result) {
         result = default;
         if (stack.Count == 0) return false;
         result = stack.Peek();
         return result is not null;
     }
-    #endif
-
-    #if NET9_0_OR_GREATER
-    public static bool TryPop<T>(Stack<T> stack, [NotNullWhen(true)] out T? result) {
-        result = default;
-        if (stack.Count == 0) return false;
-        result = stack.Pop();
-        return result is not null;
-    }
-    
-    public static bool TryPeek<T>(Stack<T> stack, [NotNullWhen(true)] out T? result) {
-        result = default;
-        if (stack.Count == 0) return false;
-        result = stack.Peek();
-        return result is not null;
-    }
-    #endif
 }
