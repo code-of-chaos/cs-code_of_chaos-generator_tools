@@ -1,18 +1,17 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-#if NETSTANDARD2_0
 using System.Diagnostics.CodeAnalysis;
 
+#if NETSTANDARD2_0
 // ReSharper disable once CheckNamespace
 namespace System.Collections.Generic;
 #else
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
+// ReSharper disable once CheckNamespace
 namespace CodeOfChaos.GeneratorTools;
 #endif
-
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
