@@ -278,6 +278,32 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
         items,
         itemFormatter: (g, item) => g.AppendBody(itemFormatter(item))
     );
+    
+    
+
+    /// <summary>
+    ///     Appends the content of each item in the provided enumerable to the builder
+    ///     by formatting them as body content as an indented body.
+    /// </summary>
+    /// <param name="items">The collection of strings to be appended as body content.</param>
+    /// <returns>The current instance of <see cref="GeneratorStringBuilder" />, allowing for method chaining.</returns>
+    public GeneratorStringBuilder ForEachAppendBodyIndented(IEnumerable<string> items) => ForEach(items, itemFormatter: (g, item) => g.AppendBodyIndented(item));
+    
+    /// <summary>
+    ///     Iterates over the specified enumerable collection and appends the formatted body content for each item
+    ///     using the provided item formatter function an indented body.
+    /// </summary>
+    /// <typeparam name="T">The type of the items in the enumerable collection.</typeparam>
+    /// <param name="items">The collection of items to iterate over.</param>
+    /// <param name="itemFormatter">
+    ///     A function that formats each item into a string representation. This formatted value is appended as body content
+    ///     using <see cref="AppendBody" />.
+    /// </param>
+    /// <returns>The current instance of <see cref="GeneratorStringBuilder" />, allowing for method chaining.</returns>
+    public GeneratorStringBuilder ForEachAppendBodyIndented<T>(IEnumerable<T> items, Func<T, string> itemFormatter) => ForEach(
+        items,
+        itemFormatter: (g, item) => g.AppendBodyIndented(itemFormatter(item))
+    );
 
     /// <summary>
     ///     Iterates through a collection of items, applying a specified action for each item.
