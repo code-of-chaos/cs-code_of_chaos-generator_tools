@@ -14,8 +14,7 @@ public static class NamedTypeSymbolExtensions {
         Stack<INamedTypeSymbol> stack = new();
         stack.Push(symbol);
         
-        while (stack.Count != 0) {
-            INamedTypeSymbol? currentSymbol = stack.Pop();
+        while (stack.TryPop(out INamedTypeSymbol? currentSymbol)) {
             if (SymbolEqualityComparer.Default.Equals(currentSymbol, baseType)) return true;
             foreach (INamedTypeSymbol @interface in currentSymbol.AllInterfaces) stack.Push(@interface);
             if (currentSymbol.BaseType == null) continue;
