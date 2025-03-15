@@ -28,7 +28,7 @@ public static class ForEachAppendBodyIndentedExtensions {
             itemFormatter
         );
 
-    public static GeneratorStringBuilder ForEachAppendBodyIndent<T, T1>(
+    public static GeneratorStringBuilder ForEachAppendBodyIndented<T, T1>(
         this GeneratorStringBuilder builder,
         IEnumerable<T> items, 
         Func<T, T1, string> itemFormatter,

@@ -28,7 +28,7 @@ public static class ForEachAppendLineIndentedExtensions {
             itemFormatter
         );
 
-    public static GeneratorStringBuilder ForEachAppendLineIndent<T, T1>(
+    public static GeneratorStringBuilder ForEachAppendLineIndented<T, T1>(
         this GeneratorStringBuilder builder,
         IEnumerable<T> items, 
         Func<T, T1, string> itemFormatter,
