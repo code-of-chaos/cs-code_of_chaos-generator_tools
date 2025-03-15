@@ -366,4 +366,23 @@ public class GeneratorStringBuilderTests {
         //          Item2
         // """""
     }
+
+    [Test]
+    [Arguments("test")]
+    [Arguments("test ")]
+    public async Task AppendComment_ShouldRespectTrailingSpaces(string input) {
+        // Arrange
+        var generator = new GeneratorStringBuilder();
+        generator.Append(input);
+        string expected = input.EndsWith(' ') 
+            ? $"{input}// comment" 
+            : $"{input} // comment";
+        
+        // Act
+        generator.AppendComment("comment");
+        string result = generator.ToString();
+        
+        // Assert
+        await Assert.That(result).IsEqualTo(expected);
+    }
 }
