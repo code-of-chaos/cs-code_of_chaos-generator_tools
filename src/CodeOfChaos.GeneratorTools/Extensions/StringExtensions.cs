@@ -20,6 +20,9 @@ public static class StringExtensions {
 
     public static bool IsNotNullOrWhiteSpace([NotNullWhen(true)] this string? str)
         => !string.IsNullOrWhiteSpace(str);
+    
+    public static string ToQuotedString(this string str)
+        => $"\"{str}\"";
  
     // ReSharper disable once ReplaceSubstringWithRangeIndexer
     public static string Truncate(this string input, int maxLength)
