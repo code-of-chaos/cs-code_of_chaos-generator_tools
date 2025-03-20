@@ -20,6 +20,8 @@ public static class StringExtensions {
 
     public static bool IsNotNullOrWhiteSpace([NotNullWhen(true)] this string? str)
         => !string.IsNullOrWhiteSpace(str);
-
-    public static string Truncate(this string input, int maxLength) => input.Length <= maxLength ? input : input[..maxLength];
+ 
+    // ReSharper disable once ReplaceSubstringWithRangeIndexer
+    public static string Truncate(this string input, int maxLength)
+        => input.Length <= maxLength ? input : input.Substring(0, maxLength);
 }
