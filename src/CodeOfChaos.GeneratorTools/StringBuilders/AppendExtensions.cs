@@ -45,9 +45,11 @@ public static class AppendExtensions {
         return builder.AppendLine($"// {comment}");
     }
 
+    // ReSharper disable once ReplaceSubstringWithRangeIndexer
     public static GeneratorStringBuilder AppendNamespace(this GeneratorStringBuilder builder, string name) {
         if (string.IsNullOrWhiteSpace(name)) return builder;
-        return builder.AppendLine($"namespace {name}");
+        if (name.EndsWith(";")) name = name.Substring(0, name.Length - 1);
+        return builder.AppendLine($"namespace {name};");
     }
 
     public static GeneratorStringBuilder AppendNullableEnable(this GeneratorStringBuilder builder) 
