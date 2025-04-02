@@ -52,6 +52,10 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
         [(3, 4)] = new(' ',3 * 4), // Most common is up to 4 indents with 4 characters
     }.ToImmutableDictionary();
     
+    
+    private CommentBuilder? _commentBuilderCache;
+    public CommentBuilder Comments => _commentBuilderCache ??= new CommentBuilder(this);
+    
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
     // -----------------------------------------------------------------------------------------------------------------
