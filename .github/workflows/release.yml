@@ -13,10 +13,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
             - name: Setup .NET
-              uses: actions/setup-dotnet@v3
+              uses: actions/setup-dotnet@v4
               with:
                   dotnet-version: '9.x'
 
@@ -29,8 +29,7 @@ jobs:
             # Ensure that the tests must pass 
             # The job will fail automatically if any test fails because `dotnet test` exits with a non-zero code
             - name: Run tests - Extensions
-              run: dotnet run -c Release --no-restore --no-build
-              working-directory: "tests/Tests.CodeOfChaos.GeneratorTools"
+              run: dotnet test CodeOfChaos.GeneratorTools.sln -c Release --no-restore --no-build
 
             - name: Publish to NuGet
               env:
