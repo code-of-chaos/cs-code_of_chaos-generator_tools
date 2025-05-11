@@ -42,7 +42,7 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
     }
 
     /// <summary>
-    /// A cached collection of precomputed indentation strings. Utilized to optimize the generation
+    /// A cached collection of precomputed indentation strings. Used to optimize the generation
     /// of indented text by reducing runtime string allocations.
     /// </summary>
     private static ImmutableDictionary<(int, int), string> _indentStrings = new Dictionary<(int, int), string> {
@@ -110,7 +110,7 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
     /// </summary>
     /// <param name="amount">The level of indentation, typically representing the number of indentation units.</param>
     /// <returns>A string containing the appropriate number of spaces for the specified indentation level.</returns>
-    internal string IndentString(int amount) {
+    private string IndentString(int amount) {
         if (_indentStrings.TryGetValue((amount, _paddingChars), out string? indentString)) return indentString;
 
         indentString = new string(' ', amount * _paddingChars);
@@ -119,7 +119,7 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
     }
 
     /// <summary>
-    ///     Indents the subsequent appending of text or actions by a specified level.
+    ///     Indents the latter appending of a text or actions by a specified level.
     /// </summary>
     /// <param name="indentedAction">
     ///     An action that specifies the content to be appended, which is indented to match the current indentation level.
@@ -140,6 +140,7 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
     /// <param name="indentedAction">The action to execute with the increased indentation level and the provided argument.</param>
     /// <param name="arg">The argument to pass to the specified action.</param>
     /// <returns>The current instance of <see cref="GeneratorStringBuilder" />, allowing for method chaining.</returns>
+    // ReSharper disable once MemberCanBePrivate.Global
     public GeneratorStringBuilder Indent<T>(Action<GeneratorStringBuilder, T> indentedAction, T arg) {
         IndentAmount++;
         indentedAction(this, arg);
@@ -175,7 +176,7 @@ public class GeneratorStringBuilder(int paddingChars = 4) {
             start = i + 1;
         }
 
-        // Append the last line if text does not end with a newline
+        // Append the last line if a text does not end with a newline
         if (start < text.Length) {
             Builder
                 .Append(indent)

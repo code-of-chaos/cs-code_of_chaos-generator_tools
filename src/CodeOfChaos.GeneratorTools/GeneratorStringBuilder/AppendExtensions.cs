@@ -1,6 +1,7 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,4 +54,19 @@ public static class AppendExtensions {
 
     public static GeneratorStringBuilder AppendNullableEnable(this GeneratorStringBuilder builder) 
         => builder.AppendLine("#nullable enable");
+
+    public static GeneratorStringBuilder AppendNullableDisable(this GeneratorStringBuilder builder) 
+        => builder.AppendLine("#nullable disable");
+
+    public static GeneratorStringBuilder AppendAutoClosedScope(this GeneratorStringBuilder builder, Action<GeneratorStringBuilder> scopeBody) 
+        => builder
+            .AppendLine("{")
+            .Indent(scopeBody)
+            .AppendLine("}");
+
+    public static GeneratorStringBuilder AppendAutoClosedInlineScope(this GeneratorStringBuilder builder, Action<GeneratorStringBuilder> scopeBody) 
+        => builder
+            .Append("{\n")
+            .Indent(scopeBody)
+            .AppendLine("}");
 }
