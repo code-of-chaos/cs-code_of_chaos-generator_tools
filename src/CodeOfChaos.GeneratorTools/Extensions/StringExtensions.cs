@@ -27,4 +27,9 @@ public static class StringExtensions {
     // ReSharper disable once ReplaceSubstringWithRangeIndexer
     public static string Truncate(this string input, int maxLength)
         => input.Length <= maxLength ? input : input.Substring(0, maxLength);
+
+    public static bool EndsWith(this string input, char expected) {
+        int lastIndex = input.Length - 1;
+        return lastIndex >= 0 && input[lastIndex] == expected;
+    }
 }
