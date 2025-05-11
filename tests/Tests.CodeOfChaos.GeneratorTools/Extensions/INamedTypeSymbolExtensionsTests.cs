@@ -3,12 +3,15 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using Microsoft.CodeAnalysis;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Tests.CodeOfChaos.GeneratorTools.Extensions;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
+[SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Global")]
+[SuppressMessage("ReSharper", "InconsistentNaming")]
 public class INamedTypeSymbolExtensionsTests {
     [Test]
     public async Task GetTypeKind_RecordStruct_ReturnsRecordStruct()
