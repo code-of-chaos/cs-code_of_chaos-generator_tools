@@ -1,12 +1,14 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using System.Diagnostics.CodeAnalysis;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.CodeAnalysis;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
+[SuppressMessage("ReSharper", "InconsistentNaming")]
 public static class INamedTypeSymbolExtensions {
     public static string GetTypeKind(this INamedTypeSymbol symbol) {
         return symbol switch {

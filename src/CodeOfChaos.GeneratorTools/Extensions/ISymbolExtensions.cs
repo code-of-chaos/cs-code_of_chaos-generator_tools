@@ -6,7 +6,6 @@ using System.Collections.Immutable;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.CodeAnalysis;
-
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
@@ -22,6 +21,10 @@ public static class ISymbolExtensions {
         if (attributes.Length == 0) return false;
         
         return attributes.Any(attr => attr.IsDisplayName(expectedName));
+    }
+
+    public static AttributeData? GetAttributeWithDisplayName(this ISymbol? symbol, string expectedName) {
+        return symbol?.GetAttributes().FirstOrDefault(attribute => attribute.IsDisplayName(expectedName));
     }
     
     public static string GetAccessibility(this ISymbol symbol) {
