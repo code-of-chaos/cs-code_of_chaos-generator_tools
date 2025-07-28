@@ -1,0 +1,11 @@
+<Project>
+    <!--
+      Hide content files from Visual Studio solution explorer. Adapted from:
+     -->
+    <ItemGroup>
+        <Compile Update="@(Compile)">
+            <!-- 👇 Replace 'SourceOnlyExample' with your own package name below -->
+            <Visible Condition="'%(NuGetItemType)' == 'Compile' and '%(NuGetPackageId)' == 'CodeOfChaos.GeneratorTools'">false</Visible>
+        </Compile>
+    </ItemGroup>
+</Project>
