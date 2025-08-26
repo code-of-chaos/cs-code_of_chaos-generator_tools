@@ -10,7 +10,7 @@
 
     <ItemGroup>
         <PackageReference Include="CodeOfChaos.CliArgsParser" Version="5.1.0" />
-        <PackageReference Include="CodeOfChaos.CliArgsParser.Library" Version="5.0.0" />
+        <PackageReference Include="CodeOfChaos.CliArgsParser.Library" Version="5.1.0" />
     </ItemGroup>
 
 </Project>
