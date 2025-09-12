@@ -26,7 +26,7 @@ public sealed class LocationInfo {
         TextSpan span = location.SourceSpan;
         LinePositionSpan lineSpan = location.GetLineSpan().Span;
         
-        return new LocationInfo() {
+        return new LocationInfo {
             FilePath = filePath,
             TextSpan = span,
             LinePositionSpan = lineSpan,
