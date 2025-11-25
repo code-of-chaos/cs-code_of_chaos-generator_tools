@@ -20,10 +20,10 @@ jobs:
                   dotnet-version: '9.x'
 
             - name: Restore dependencies
-              run: dotnet restore CodeOfChaos.GeneratorTools.sln
+              run: dotnet restore CodeOfChaos.GeneratorTools.slnx
 
             - name: Build
-              run: dotnet build CodeOfChaos.GeneratorTools.sln --configuration Release --no-restore -p:GeneratePackageOnBuild=false -p:IsPackable=false
+              run: dotnet build CodeOfChaos.GeneratorTools.slnx --configuration Release --no-restore -p:GeneratePackageOnBuild=false -p:IsPackable=false
 
             - name: Run tests
-              run: dotnet test CodeOfChaos.GeneratorTools.sln --configuration Release --no-restore --no-build
+              run: dotnet test --solution CodeOfChaos.GeneratorTools.slnx --configuration Release --no-restore --no-build
