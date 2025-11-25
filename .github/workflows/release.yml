@@ -21,15 +21,15 @@ jobs:
                   dotnet-version: '9.x'
 
             - name: Restore dependencies
-              run: dotnet restore CodeOfChaos.GeneratorTools.sln
+              run: dotnet restore CodeOfChaos.GeneratorTools.slnx
 
             - name: Build
-              run: dotnet build CodeOfChaos.GeneratorTools.sln --configuration Release --no-restore
+              run: dotnet build CodeOfChaos.GeneratorTools.slnx --configuration Release --no-restore
             
             # Ensure that the tests must pass 
             # The job will fail automatically if any test fails because `dotnet test` exits with a non-zero code
             - name: Run tests - Extensions
-              run: dotnet test CodeOfChaos.GeneratorTools.sln -c Release --no-restore --no-build
+              run: dotnet test --solution CodeOfChaos.GeneratorTools.slnx -c Release --no-restore --no-build
 
             - name: Publish to NuGet
               env:
