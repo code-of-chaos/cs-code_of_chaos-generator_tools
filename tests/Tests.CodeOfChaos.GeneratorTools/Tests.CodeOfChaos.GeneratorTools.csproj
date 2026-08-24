@@ -12,7 +12,7 @@
 
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2026.2.0" />
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="5.3.0">
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="5.9.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
